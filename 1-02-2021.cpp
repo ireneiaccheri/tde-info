@@ -8,7 +8,7 @@ della prima consonante all'interno dell'i-sima parola.
 
 si completi quindi il seguente main con l'invocazione a "primaPosizioneConsonante" con la stampa del contentuto di "txt" e di "pos"
 
-PS: se utile, è lecito assumere che
+PS: se utile, Ã¨ lecito assumere che
     - "txt" non termini con il carattere spazio
     - "txt" non contenga altro che caratteri minuscoli
     - tutte le parole di "txt" contengono almeno una consonante
@@ -39,12 +39,6 @@ int main()
    
    primaconsonante(txt1,v1);
  
-    // TODO: INVOCAZIONE funzione su txt1
-    // STAMPA tutta la *porzione utilizzata* del vettore "pos"
-
-    // TODO: INVOCAZIONE funzione su txt2
-    // STAMPA tutta la *porzione utilizzata* della stringa "pos"
-
 }
 
 int lunghezza(char str[]){
@@ -74,7 +68,7 @@ void primaconsonante(char txt[],int v[]){
 	for(i=0;txt[i]!='\0' && k<6 ;i++){
 		if(txt[i]!='a' && txt[i]!='e' && txt[i]!='i' &&txt[i]!='o' &&txt[i]!='u' ){
 			v[k]=i-iniziatori[k];
-			i=iniziatori[k+1]-1; ///faccio partie il conteggio da dove iniziano le parole; non ho capito perch -1
+			i=iniziatori[k+1]-1; 
 			k++;
 		}
 		
@@ -87,7 +81,7 @@ void primaconsonante(char txt[],int v[]){
 }
 
 ////ESERCIZIO 2 LISTE/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*Si consideri una lista di conti correnti bancari così definita
+/*Si consideri una lista di conti correnti bancari cosÃ¬ definita
 typedef struct c {???????? char c;
 struct c * next; }???????? Cifra;
 
@@ -103,12 +97,12 @@ typedef Correntista * ListaConti;
 Si noti che ogni nodo contiene un nome e un numero costruito come una lista di caratteri 
 (esempio di IBAN IT02L1234512345123456789012).
 
-Con l’avvento dell’unione bancaria europea arrivano correntisti dall’estero e urge uniformare 
+Con lâ€™avvento dellâ€™unione bancaria europea arrivano correntisti dallâ€™estero e urge uniformare 
 la gestione dei contatti telefonici
 - Se il numero inizia con il carattere '+' resta inalterato
 - Se inizia con due zeri, li sostituisce con un '+'
 - Se inizia con un solo zero o con una cifra diversa da zero ('1','2', ... '9') 
-vi aggiunge i caratteri ‘+’, ‘3’ e ‘9’ all'inizio
+vi aggiunge i caratteri â€˜+â€™, â€˜3â€™ e â€˜9â€™ all'inizio
 
 Si sviluppino le funzioni richeiste e le si invochi nel main sotto definito nel file:
 https://www.dropbox.com/s/2rqserwcksiwrdy/lab7es4.c?dl=0
@@ -265,25 +259,23 @@ void modifica(ListaConti lista){
 }
 
 ///ESERCIZIO 3 SQL///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Lo schema seguente è utilizzato per gestire l’acquisto di biglietti per i voli di una compagnia aerea. Capienza indica il numero massimo di posti disponibili su un determinato volo. Le chiavi sono gli attributi scritti interamente in maiuscolo.
+Lo schema seguente Ã¨ utilizzato per gestire lâ€™acquisto di biglietti per i voli di una compagnia aerea. Capienza indica il numero massimo di posti disponibili su un determinato volo. Le chiavi sono gli attributi scritti interamente in maiuscolo.
 - VOLO (NUMERO, DATA, Ora, AeroportoPartenza, AeroportoDestinazione, Capienza, TipoAeromobile)
 - BIGLIETTO (NUMEROPOSTO, NUMEROVOLO, DATA, CFCliente, Prezzo)
-- CLIENTE (CF, Nome, Cognome, Indirizzo, Città, Nazione)
+- CLIENTE (CF, Nome, Cognome, Indirizzo, CittÃ , Nazione)
 
 Scrivere la query SQL che, per ciascun giorno, trova la media dei prezzi dei biglietti venduti.
 
 SELECT avg(prezzo)
 FROM Biglietto
 GROUP BY Data 
-// non ho condizioni sul where, e devo scegliere di cosa fare la media///
 
 
-Scrivere la query SQL che estrae i voli per cui sono stati venduti solo biglietti più costosi di 2000 euro
+
+Scrivere la query SQL che estrae i voli per cui sono stati venduti solo biglietti piÃ¹ costosi di 2000 euro
 SELECT (*)
 FROM Volo
 WHERE Numero NOT IN (SELECT Numerovolo
                      FROM Biglietto
 					 WHERE Prezzo<2000) 
-
-///prendo i voli per cui i biglietti costano meno di 2000--->devo prendere tuttti gli altri///////////
 
