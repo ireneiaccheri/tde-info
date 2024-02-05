@@ -1,7 +1,7 @@
 //// TDE 16/01/2023 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /// ESERCIZIO 1 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*Si una funzione riordina che prende in ingresso due vettori u e v (più eventuali variabili necessarie) e che riordina gli elementi del primo vettore passato in input 
+/*Si una funzione riordina che prende in ingresso due vettori u e v (piÃ¹ eventuali variabili necessarie) e che riordina gli elementi del primo vettore passato in input 
 (u nel nostro caso) nel seguente modo:
 tutti gli elementi di u che non compaiono in v saranno nelle prime posizioni di u dopo l'invocazione
 tutti gli elementi di u che compaiono in v saranno nelle ultime posizioni di u dopo l'invocazione
@@ -9,7 +9,7 @@ Si faccia riferimento all'esempio sotto per eventuali dubbi su come modificare u
 
 Si invochi quindi la funzione relativamente al seguente codice e si stampi il contenuto del vettore u a schermo.
 
-N.B non è possibile stampare all'interno della funzione riordina
+N.B non Ã¨ possibile stampare all'interno della funzione riordina
 Risultato atteso
 
 u = 4 1 3 7 0
@@ -91,11 +91,11 @@ Si scriva una funzione lunghezza che riceve una variabile di tipo ListaPunti (e 
 
 Si scriva poi una funzione sistemaListaSpezzate che riceve una variabile di tipo ListaSpezzate e verifica che le s
 pezzate contenute dentro la lista siano in ordine di lunghezza crescente e, se non lo sono, 
-la funzione elimina quelle che violano l’ordine eliminando quelle che sono più corte di quella che le precedono. 
-Per semplicità si ignori il possibile rischio che cancellando una lista si renda accettabile quella che la segue anche se non dovrebbe essere accettata.
- Nello scrivere la funzione si può sfruttare la funzione distanza già contenuta nel file.
-  Con cancellare si intende cancellare dalla lista, è necessario eliminare dalla lista, 
-  non farne una più corta e senza appoggiari a liste ausiliarie.
+la funzione elimina quelle che violano lâ€™ordine eliminando quelle che sono piÃ¹ corte di quella che le precedono. 
+Per semplicitÃ  si ignori il possibile rischio che cancellando una lista si renda accettabile quella che la segue anche se non dovrebbe essere accettata.
+ Nello scrivere la funzione si puÃ² sfruttare la funzione distanza giÃ  contenuta nel file.
+  Con cancellare si intende cancellare dalla lista, Ã¨ necessario eliminare dalla lista, 
+  non farne una piÃ¹ corta e senza appoggiari a liste ausiliarie.
 
 Si invochi quindi la funzione sistemaListaSpezzate nel main e si stampi la lista "sistemata".
 
@@ -148,9 +148,6 @@ int main(){
 	ListaSpezzate lis;
 	lis=costruisci();
 	VisualizzaListaSpezzate(lis);
-
-	//TODO: invocazione funzione
-	printf("\n%f\n\n",lunghezza(lis->next->lisP));
 	
 	VisualizzaListaSpezzate(modifica(lis));
 
@@ -251,9 +248,9 @@ ed una stringa e
 - restituisce 1 se tutti cammini dalla radice alle foglie contengono esattamente 2 lettere della stringa, 
 - 0 altrimenti.
 
-Si consiglia molto fortemente l’uso di funzioni ausiliarie con parametri aggiuntivi che “trasportino” nelle chiamate informazioni utili.
+Si consiglia molto fortemente lâ€™uso di funzioni ausiliarie con parametri aggiuntivi che â€œtrasportinoâ€ nelle chiamate informazioni utili.
 
-Se la funzione cerca sarà scritta correttamente (insieme alle funzioni ausiliarie) il programma stamperà il seguente risultato 
+Se la funzione cerca sarÃ  scritta correttamente (insieme alle funzioni ausiliarie) il programma stamperÃ  il seguente risultato 
 a partire dal codice fornito
 
 T1:  ( ( ( o )  c  ( b ) )  a  ( ( c )  d  ( ( c )  r  ( a ) ) ) )
@@ -348,7 +345,7 @@ void aux(albero t,int v[], char str[],int *index, int count){
 	if(t==NULL) return;
 	if(trovato(str,t->val)) count++; //se il valore e nella stringa incremento un contatore
 	if(t->left==NULL && t->right==NULL ){ //arrivo ai nodi foglia
-		if(count==2){ //se il contatore è 2, posso mettere a 1 la casella index del vettore
+		if(count==2){ //se il contatore Ã¨ 2, posso mettere a 1 la casella index del vettore
 		    v[*index]=1;}
 		(*index)++;	} //in ogni caso devo incrementare l'indice quando passo ad analizzare il cammino successivo
 		
@@ -395,27 +392,27 @@ albero createVal(char val) {
 
 ///// ESERCIZIO 4 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Il seguente schema è relativo alla base di dati di un’agenzia immobiliare. I valori possibili dell'attributo TIPO sono: Appartamento, Villetta, Box, ....
+Il seguente schema Ã¨ relativo alla base di dati di unâ€™agenzia immobiliare. I valori possibili dell'attributo TIPO sono: Appartamento, Villetta, Box, ....
 
 CLIENTE (CF, Nome, Cognome)
 AFFITTO (CF_Cliente, ID_Immobile, Data_Inizio, Data_Fine, Costo_Totale)
-IMMOBILE (ID, mq, Città, CF_Proprietario, Tipo)
-PROPRIETARIO (CF, Nome, Cognome, Città)
+IMMOBILE (ID, mq, CittÃ , CF_Proprietario, Tipo)
+PROPRIETARIO (CF, Nome, Cognome, CittÃ )
 
-Scrivere in SQL l’interrogazione che estrae CF, nome e cognome dei proprietari degli immobili che non sono mai stati affittati da nessuno.
+Scrivere in SQL lâ€™interrogazione che estrae CF, nome e cognome dei proprietari degli immobili che non sono mai stati affittati da nessuno.
 SELECT P.Nome,P.CF,P.Cognome
 FROM PROPRIETARIO P,IMMOBILE I
 WHERE P.CF=I.CF_Propiretario AND ID NOT IN( SELECT ID_Immobile
                                             FROM AFFITTO)
 				 
-Scrivere in SQL l’interrogazione che estrae per ogni città l’immobile che ha generato i maggiori guadagni.
+Scrivere in SQL lâ€™interrogazione che estrae per ogni cittÃ  lâ€™immobile che ha generato i maggiori guadagni.
 //per ogni immobile devi sommare i guadagni che ha generato
 // devi raggruppare questi immobili per citta e trovare quello che ha il numero piu alto
-SELECT Città, ID
+SELECT CittÃ , ID
 FROM IMMOBILE I,AFFITTO A
 GROUP BY I.CITTA,A.IDIMMOBILE
 WHERE  I.ID=A.IDIMMOBILE AND SUM(A.CostoTotale)>=ALL (SELECT(SUM(COSTOTOTALE))
-                              FROM AFFITTO
-							  GROUP BY IDIMMOBILE)
+                              FROM AFFITT
+	                  GROUP BY IDIMMOBILE)
 
 
