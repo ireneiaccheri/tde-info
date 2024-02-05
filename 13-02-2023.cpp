@@ -1,15 +1,15 @@
-//// TDE 13/02/2023 /////////////////////////////////////////////////////////////////////////////////////////////////////////////77
+//// TDE 13/02/2023 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-////ESERCIZIO 1 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+////ESERCIZIO 1 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*Si implementi una funzione verifica per controllare che un acronimo corrisponda ad un determinato testo. 
 In particolare la funzione verifica prende in ingresso due stringhe acr e txt (oltre ad eventuali variabili necessarie) e 
-controller‡ che tutti e soli i caratteri di acr corrispondono all'iniziale di una parola in txt e che questi appaiano 
+controller√† che tutti e soli i caratteri di acr corrispondono all'iniziale di una parola in txt e che questi appaiano 
 in ordine corretto.
 
 In particolare:
 Acronimi troppo lunghi o troppo corti rispetto al testo non sono considerati validi.
 Si assuma pure che i caratteri in acr siano tutti maiuscoli, e che in in txt ogni parola inizi con lettera maiuscola
-Si assuma che acr sia correttamente formattata e txt oltre a essere correttamente formattata contenga sempre un solo spazio prima di ogni parola e che non ci siano spazi prima del ë\0í
+Si assuma che acr sia correttamente formattata e txt oltre a essere correttamente formattata contenga sempre un solo spazio prima di ogni parola e che non ci siano spazi prima del ‚Äò\0‚Äô
 
 
 
@@ -81,8 +81,10 @@ if(contatore==count){
 				
 }
 
+//con questa tipologia di risoluzione funziona solo se i vari txt cominciano con uno spazio, ipotesi possibile prevista dal testo
+
 /////ESERCIZIO 2 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*Si consideri una lista definita come sotto che contiene i punti ottenuti da clienti durante vari acquisti (ovviamente lo stesso cliente, quindi lo stesso codice, sar‡ presente pi˘ volte nella lista)
+/*Si consideri una lista definita come sotto che contiene i punti ottenuti da clienti durante vari acquisti (ovviamente lo stesso cliente, quindi lo stesso codice, sar√† presente pi√π volte nella lista)
  
 typedef struct nodo{
     char codice[100];
@@ -93,7 +95,7 @@ typedef nodo * Lista;
  
 Scrivere una funzione aggrega che, data una lista di nodi, genera una nuova lista con la stessa struttura, ma in cui ogni codice appare una volta sola avendo come punteggio la somma dei punteggi dei nodi della lista di partenza.
  
-Coi dati del main allegato verr‡ generata una lista contenente i seguenti elementi (non importa in che ordine)
+Coi dati del main allegato verr√† generata una lista contenente i seguenti elementi (non importa in che ordine)
 (c1,764) --->  (c2,882) --->  (c3,834) --->  (c4,634) --->  (c5,661) --->  ---|*/
 
 
@@ -200,9 +202,9 @@ typedef Nodo * Tree;
  
 Scrivere una funzione percorsoMediaMinima che prende in ingresso un albero binario e calcolando, per ogni percorso dalla radice alle foglie, la media dei valori (nei nodi) che compongono il percorso restituisce un unico valore che rappresenta il minimo tra le medie dei valori di ciascun percorso. 
  
-Si consiglia molto fortemente líuso di funzioni ausiliarie con parametri aggiuntivi che ìtrasportinoî nelle chiamate informazioni utili.
+Si consiglia molto fortemente l‚Äôuso di funzioni ausiliarie con parametri aggiuntivi che ‚Äútrasportino‚Äù nelle chiamate informazioni utili.
  
-Con gli alberi di esempio del codice fornito líoutput deve essere:
+Con gli alberi di esempio del codice fornito l‚Äôoutput deve essere:
 Il percorso in T1 con media di valori minima ha media: 6.333333
 Il percorso in T2 con media di valori minima ha media: 6.500000
 Il percorso in T3 con media di valori minima ha media: 3.000000*/
@@ -248,16 +250,13 @@ int main() {
 }
 
 float costoMinimoMedio(albero T){
-	
-	return calcolamedia(T,0,0);
-}
+	return calcolamedia(T,0,0);}
 
 float calcolamedia(albero t,float somma,float count){
 	if(t==NULL) return somma/count;
 	float d=calcolamedia(t->right,somma+t->val,count+1);
 		float s=calcolamedia(t->left,somma+t->val,count+1);
-		
-	if(d<s){
+		if(d<s){
 		return d;
 	}else return s;
 
@@ -318,22 +317,67 @@ albero createVal(int val) {
     return tmp;
 }
 
+//con questo primo codice si riporta solo la media piu piccola. Un altra possibilit√† √® quella di salvarsi le medie dei vari cammini in un vettore e ricercare poi il minimo
+//tra quelle. Di sotto riporto le funzioni con questa soluzione senza riscrivere tutto il resto del codice
+
+float costoMinimoMedio(albero T){
+	int dim=foglie(T);
+	float *v=(float*)malloc(sizeof(float)*dim);
+	for(int i=0;i<dim;i++){
+		v[i]=0;
+	}
+	int index=0;
+	aux(T,v,&index,0,0);
+	float min=v[0];
+	
+	for(int i=0;i<dim;i++){
+		if(v[i]<min)
+		min=v[i];
+	}
+	
+	return min;
+}
+void aux(albero t,float *v,int *index,float somma,int count){
+	if(t==NULL) return;
+	count++;
+	somma=somma+t->val;
+	if(t->left==NULL && t->right==NULL){
+		v[*index]=somma/count;
+		(*index)++;
+	}
+	
+	aux(t->left,v,index,somma,count);
+	aux(t->right,v,index,somma,count);
+}
+
+
+
+int foglie(albero t){
+	if(t==NULL) return 0;
+	if(t->left==NULL && t->right==NULL) return 1;
+	
+	return foglie(t->right)+foglie(t->left);
+}
+
+
+
+
 ////// ESERCIZIO 4 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Si consideri il seguente schema, relativo ad una catena di piscine pubbliche (i campi tutto maiuscolo sono le chiavi delle tabelle).
 
-CLIENTE (CFCLIENTE, Nome, Cognome, Citt‡, Data_Nascita)
-PISCINA (IDPISCINA, Nome, Indirizzo, Citt‡, Data_Inaugurazione)
+CLIENTE (CFCLIENTE, Nome, Cognome, Citt√†, Data_Nascita)
+PISCINA (IDPISCINA, Nome, Indirizzo, Citt√†, Data_Inaugurazione)
 BIGLIETTO (CFCLIENTE, IDPISCINA, DATAINGRESSO)
 
-Scrivere una query in SQL che estrae CF, Nome e Cognome dei clienti che non sono mai andati in piscine della loro citt‡.
+Scrivere una query in SQL che estrae CF, Nome e Cognome dei clienti che non sono mai andati in piscine della loro citt√†.
 SELECT C.CFCliente,C.Nome,C.Cognome
  FROM Cliente as C,Piscina as P,Biglietto as B
  WHERE C.CfCliente=B.CfCliente AND
              P.IdPiscina=B.IdPiscina AND
              B.IdPiscina NOT IN (SELECT P2.IdPiscina
                                     FROM Piscina as P2
-                                    WHERE P2.Citt‡=C.Citt‡)
+                                    WHERE P2.Citt√†=C.Citt√†)
  GROUP BY C.CFCliente
 
 Scrivere una query in SQL che estrae CF, Nome e Cognome dei clienti di Milano che hanno frequentato almeno una volta tutte le piscine di Milano.
@@ -341,9 +385,9 @@ Scrivere una query in SQL che estrae CF, Nome e Cognome dei clienti di Milano ch
  FROM Cliente as C,Biglietto as B,Piscina as P
  WHERE C.CFCliente=B.CFCliente AND
             B.IdPiscina=P.IdPiscina AND
-            C.Citt‡='Milano' AND
-            P.Citt‡='Milano
+            C.Citt√†='Milano' AND
+            P.Citt√†='Milano
  GROUP BY C.CFCliente
  HAVING count(*)=(SELECT Count(IdPiscina)//essendo una chiave non ho messo Distinct.
                              FROM Piscina
-                             WHERE Citt‡='Milano')
+                             WHERE Citt√†='Milano')
